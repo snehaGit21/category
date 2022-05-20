@@ -15,3 +15,9 @@ Here is a commonly used category grid code. I n order to add this to your theme 
 10) If everything works fine you can publish this duplicate.
 
 Hope, it helps!
+
+Mobile Version :
+![MicrosoftTeams-image (7)](https://user-images.githubusercontent.com/83682359/169522415-f809b526-ec3e-4b59-9bef-a7d3004d5a83.png)
+
+Desktop Version :
+![MicrosoftTeams-image (8)](https://user-images.githubusercontent.com/83682359/169522557-567a2c27-ceb2-474d-b495-92363caf6d8b.png)
