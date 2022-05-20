@@ -1,0 +1,163 @@
+<style>
+  .category_heading{
+    text-align: center;
+    padding: 16px 0;
+    font-size: 32px;
+    font-family: sans-serif;
+    font-weight: 600;
+    line-height: 22px;
+    color: {{ section.settings.heading_color }};
+  }
+  .category_container{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 100px;
+    justify-content: center;
+  }
+  .category_card{
+    padding: 8px;
+    position: relative;
+  }
+  .name{
+    position: absolute;
+    bottom: 0;
+    background-color: #ecece4;
+    width: 92.5%;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: sans-serif;
+    line-height: 18px;
+    padding: 8px;
+    color: #000;
+  }
+  .section_link{
+    display: flex;
+    justify-content: center;
+    margin: 12px 0 32px 0;
+  }
+  .section_button{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 16px;
+    color: #000;
+    background-color: #ccc;
+  }
+  
+  @media only screen and (min-width: 769px){
+    .category_container{
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px 100px;
+      justify-content: center;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .category_container{
+      padding: 0;
+      display: grid;
+      grid-template-columns: auto auto;
+    }
+    .name{
+      width: 91.5%;
+    }
+    .category_card{
+      display: none;
+    }
+    .category_card:nth-child(n+5){
+      display: block;
+    }
+    .section_container{
+      background-image: {{ section.settings.background_mobile | img_url: 'master' }};
+    }
+  }
+</style>
+
+{% assign heading = section.settings.category_heading %}
+{% assign button_text = section.settings.button_text %}
+
+<div class="section_container">
+  {% if heading != blank %}
+  	<p class="category_heading">{{ heading }}</p>
+  {% endif %}
+  
+  <div class="category_container">
+      {% for block in section.blocks %}
+      {% if block.settings.category_image != blank %}
+      	<div class="category_card">
+          <a class="category_link" href="{{ block.settings.category_link }}">
+          	<img class="category_image" src="{{ block.settings.category_image | img_url: 'x120'}}">
+            <p class="name">{{ block.settings.category_name }}</p>
+          </a>
+      	</div>
+      {% endif %}
+      {% endfor %}
+  </div>
+  
+  {% if button_text != blank %}
+  <div class="section_link">
+    <a class="section_button" href="{{ section.settings.button_link }}">{{- button_text -}}</a>
+  </div>
+  {% endif %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Category List",
+    "settings": [
+		{
+			"type": "text",
+			"id": "category_heading",
+			"label": "Catgeory Heading"
+		},
+		{
+			"type": "color",
+			"id": "heading_color",
+			"label": "Heading Color",
+			"default": "#000"
+		},
+		{
+			"type": "text",
+			"id": "button_text",
+			"label": "Button Text"
+		},
+		{
+			"type": "url",
+			"id": "button_link",
+			"label": "Button Link"
+		}
+	],
+	"max_blocks": 16,
+	"blocks": [
+		{
+			"type": "image_picker",
+			"name": "Add Catgeory",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "category_image",
+					"label": "Category Image",
+					"info": "Recommended size (120 X 120)px"
+				},
+				{
+					"type": "text",
+					"id": "category_name",
+					"label": "Category Name"
+				},
+				{
+					"type": "url",
+					"id": "category_link",
+					"label": "Category Link"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Category List",
+			"category": "image_picker"
+		}
+	]
+  }
+{% endschema %}
